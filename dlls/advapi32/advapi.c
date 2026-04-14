@@ -1,7 +1,7 @@
 /*
  * Win32 advapi functions
  *
- * Copyright 1995 Sven Verdoolaege
+ * Copyright 1995 Sven Verdoolaege 
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
