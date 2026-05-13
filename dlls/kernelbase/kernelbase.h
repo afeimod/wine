@@ -43,6 +43,9 @@ extern const WCHAR system_dir[];
 
 static const BOOL is_win64 = (sizeof(void *) > sizeof(int));
 extern BOOL is_wow64;
+#ifdef __arm64ec__
+extern BOOL is_arm64ec;
+#endif
 
 static inline BOOL set_ntstatus( NTSTATUS status )
 {

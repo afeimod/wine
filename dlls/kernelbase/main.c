@@ -36,6 +36,11 @@ WINE_DEFAULT_DEBUG_CHANNEL(kernelbase);
 
 
 BOOL is_wow64 = FALSE;
+#ifdef __arm64ec__
+BOOL is_arm64ec = TRUE;
+#else
+BOOL is_arm64ec = FALSE;
+#endif
 
 /***********************************************************************
  *           DllMain
