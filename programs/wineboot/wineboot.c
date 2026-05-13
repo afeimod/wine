@@ -378,7 +378,11 @@ static UINT64 read_tsc_frequency(void)
     return freq;
 }
 
-#elif defined(__aarch64__)
+#elif defined(__aarch64__) || defined(__arm64ec__)
+
+static void initialize_xstate_features(struct _KUSER_SHARED_DATA *data)
+{
+}
 
 static UINT64 read_tsc_frequency(void)
 {
