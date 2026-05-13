@@ -1,3 +1,4 @@
 MODULE    = wdscore.dll
 
 EXTRADLLFLAGS = -Wb,--prefer-native
+EXTRASOURCES = $(ARCH)/wdscore.spec
