@@ -1860,6 +1860,8 @@ static void init_supported_machines(void)
     supported_machines[count++] = IMAGE_FILE_MACHINE_I386;
 #elif defined(__arm__)
     if (prefix_type == PREFIX_32BIT) supported_machines[count++] = IMAGE_FILE_MACHINE_ARMNT;
+#elif defined(__arm64ec__)
+    supported_machines[count++] = IMAGE_FILE_MACHINE_ARM64EC;
 #elif defined(__aarch64__)
     if (prefix_type == PREFIX_64BIT)
     {
@@ -2006,6 +2008,7 @@ void init_registry(void)
             switch (supported_machines[i])
             {
             case IMAGE_FILE_MACHINE_I386:  mkdir( "drive_c/windows/syswow64", 0777 ); break;
+            case IMAGE_FILE_MACHINE_ARM64EC: mkdir( "drive_c/windows/syswow64", 0777 ); break;
             case IMAGE_FILE_MACHINE_ARMNT: mkdir( "drive_c/windows/sysarm32", 0777 ); break;
             }
         }
