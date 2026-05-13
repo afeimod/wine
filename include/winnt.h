@@ -7061,7 +7061,7 @@ static FORCEINLINE __int64 InterlockedAdd64( __int64 volatile *dest, __int64 val
 
 static FORCEINLINE void MemoryBarrier(void)
 {
-    LONG dummy;
+    volatile LONG dummy;
     InterlockedOr(&dummy, 0);
 }
 
