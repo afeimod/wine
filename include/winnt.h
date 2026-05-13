@@ -7057,12 +7057,11 @@ static FORCEINLINE __int64 InterlockedAdd64( __int64 volatile *dest, __int64 val
     return InterlockedExchangeAdd64( dest, val ) + val;
 }
 
-#ifdef __i386__
+#if defined(__i386__) || defined(__i386)
 
 static FORCEINLINE void MemoryBarrier(void)
 {
-    volatile LONG dummy;
-    InterlockedOr(&dummy, 0);
+    __sync_synchronize();
 }
 
 #elif defined(__aarch64__) || defined(__arm64ec__)
