@@ -4457,13 +4457,13 @@ static void load_arm64ec_module(void)
     HANDLE key;
     DWORD res;
 
-    if ((res = loaderGetEnvironmentVariableW( L"HODLL64", cpu_dll, ARRAY_SIZE(buffer))) &&
+    if ((res = loaderGetEnvironmentVariableW( L"HODLL64", (WCHAR*)buffer, ARRAY_SIZE(buffer))) &&
         res < ARRAY_SIZE(buffer))
     {
         ULONG dirlen = wcslen( L"C:\\windows\\system32\\" );
         ULONG size = sizeof(module) - (dirlen + 1) * sizeof(WCHAR);
         memset( module + dirlen, 0, size );
-        memcpy( module + dirlen, cpu_dll, min( res * sizeof(WCHAR), size ));
+        memcpy( module + dirlen, buffer, min( res * sizeof(WCHAR), size ));
     }
 
 if (0)
