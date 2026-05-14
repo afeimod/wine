@@ -2401,7 +2401,7 @@ if test -n "$PE_ARCHS"
 then
     enable_wow64=${enable_wow64:-aarch64,x86_64}
     enable_wow64win=${enable_wow64win:-aarch64,x86_64}
-    enable_wow64cpu=${enable_wow64cpu:-x86_64}
+    enable_wow64cpu=${enable_wow64cpu:-aarch64,i386}
     enable_xtajit64=${enable_xtajit64:-arm64ec}
 else
     enable_wow64=${enable_wow64:-no}
