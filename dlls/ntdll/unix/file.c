@@ -3077,11 +3077,13 @@ static const WCHAR logfilesW[] = {'s','y','s','t','e','m','3','2','\\','l','o','
 static const WCHAR spoolW[] = {'s','y','s','t','e','m','3','2','\\','s','p','o','o','l',0};
 static const WCHAR system32W[] = {'s','y','s','t','e','m','3','2',0};
 static const WCHAR syswow64W[] = {'s','y','s','w','o','w','6','4',0};
+static const WCHAR sysarm32W[] = {'s','y','s','a','r','m','3','2',0};
 static const WCHAR sysnativeW[] = {'s','y','s','n','a','t','i','v','e',0};
 static const WCHAR regeditW[] = {'r','e','g','e','d','i','t','.','e','x','e',0};
 static const WCHAR syswow64_regeditW[] = {'s','y','s','w','o','w','6','4','\\','r','e','g','e','d','i','t','.','e','x','e',0};
 static const WCHAR windirW[] = {'\\','?','?','\\','C',':','\\','w','i','n','d','o','w','s','\\',0};
 static const WCHAR syswow64dirW[] = {'\\','?','?','\\','C',':','\\','w','i','n','d','o','w','s','\\','s','y','s','w','o','w','6','4','\\'};
+static const WCHAR sysarm32dirW[] = {'\\','?','?','\\','C',':','\\','w','i','n','d','o','w','s','\\','s','y','s','a','r','m','3','2','\\'};
 
 static const WCHAR * const no_redirect[] =
 {
@@ -3220,6 +3222,7 @@ BOOL get_redirect( OBJECT_ATTRIBUTES *attr, UNICODE_STRING *redir )
         if (starts_with_path( name + prefix_len, len - prefix_len, no_redirect[i] )) return FALSE;
 
     if (replace_path( attr, redir, prefix_len, system32W, syswow64W )) return TRUE;
+    if (replace_path( attr, redir, prefix_len, system32W, sysarm32W )) return TRUE;
     if (replace_path( attr, redir, prefix_len, regeditW, syswow64_regeditW )) return TRUE;
     return FALSE;
 }
