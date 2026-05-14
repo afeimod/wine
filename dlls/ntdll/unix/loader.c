@@ -1742,6 +1742,8 @@ static const WCHAR *get_machine_wow64_dir( WORD machine )
     case IMAGE_FILE_MACHINE_TARGET_HOST: return system32;
     case IMAGE_FILE_MACHINE_I386:        return syswow64;
     case IMAGE_FILE_MACHINE_ARMNT:       return sysarm32;
+    case IMAGE_FILE_MACHINE_ARM64:
+    case IMAGE_FILE_MACHINE_ARM64EC:     return syswow64;  /* ARM64EC上的x86 WoW64使用syswow64 */
     default: return NULL;
     }
 }
