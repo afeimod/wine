@@ -1009,9 +1009,9 @@ static void create_wow64_registry_keys(void)
 {
     HKEY wow64_key, subkey;
     static const WCHAR wow64_pathW[] = L"Software\\Microsoft\\Wow64";
-    static const WCHAR amd64_dllW[] = L"C:\\windows\\syswow64\\wow64.dll";
-    static const WCHAR arm_dllW[] = L"C:\\windows\\syswow64\\wowarmrt.dll";
-    static const WCHAR x86_dllW[] = L"C:\\windows\\syswow64\\wow64.dll";
+    static const WCHAR amd64_dllW[] = L"libarm64ecfex.dll";
+    static const WCHAR arm_dllW[] = L"wowarmhw.dll";
+    static const WCHAR x86_dllW[] = L"libwow64fex.dll";
 
     /* Create the parent Wow64 key */
     if (RegCreateKeyExW(HKEY_LOCAL_MACHINE, wow64_pathW, 0, NULL,
