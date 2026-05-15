@@ -1004,6 +1004,53 @@ static void create_hardware_registry_keys(void)
     free( buf );
 }
 
+/* create WoW64 registry keys for ARM64EC and WoW64 support */
+static void create_wow64_registry_keys(void)
+{
+    HKEY wow64_key, subkey;
+    static const WCHAR wow64_pathW[] = L"Software\\Microsoft\\Wow64";
+    static const WCHAR amd64_dllW[] = L"C:\\windows\\syswow64\\wow64.dll";
+    static const WCHAR arm_dllW[] = L"C:\\windows\\syswow64\\wowarmrt.dll";
+    static const WCHAR x86_dllW[] = L"C:\\windows\\syswow64\\wow64.dll";
+
+    /* Create the parent Wow64 key */
+    if (RegCreateKeyExW(HKEY_LOCAL_MACHINE, wow64_pathW, 0, NULL,
+                        REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &wow64_key, NULL))
+    {
+        WINE_ERR("Failed to create Wow64 registry key\n");
+        return;
+    }
+
+    /* Create amd64 key - for x64 emulation (used by ARM64EC) */
+    if (!RegCreateKeyExW(wow64_key, L"amd64", 0, NULL,
+                        REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &subkey, NULL))
+    {
+        RegSetValueExW(subkey, L"", 0, REG_SZ, (const BYTE *)amd64_dllW,
+                      (lstrlenW(amd64_dllW) + 1) * sizeof(WCHAR));
+        RegCloseKey(subkey);
+    }
+
+    /* Create arm key - for ARM32 emulation */
+    if (!RegCreateKeyExW(wow64_key, L"arm", 0, NULL,
+                        REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &subkey, NULL))
+    {
+        RegSetValueExW(subkey, L"", 0, REG_SZ, (const BYTE *)arm_dllW,
+                      (lstrlenW(arm_dllW) + 1) * sizeof(WCHAR));
+        RegCloseKey(subkey);
+    }
+
+    /* Create x86 key - for x86 emulation */
+    if (!RegCreateKeyExW(wow64_key, L"x86", 0, NULL,
+                        REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &subkey, NULL))
+    {
+        RegSetValueExW(subkey, L"", 0, REG_SZ, (const BYTE *)x86_dllW,
+                      (lstrlenW(x86_dllW) + 1) * sizeof(WCHAR));
+        RegCloseKey(subkey);
+    }
+
+    RegCloseKey(wow64_key);
+    TRACE("Created WoW64 registry keys\n");
+}
 
 /* create the DynData registry keys */
 static void create_dynamic_registry_keys(void)
@@ -1977,6 +2024,7 @@ int __cdecl main( int argc, char *argv[] )
 
     create_user_shared_data();
     create_hardware_registry_keys();
+    create_wow64_registry_keys();
     create_dynamic_registry_keys();
     create_computer_name_keys();
     wininit();
